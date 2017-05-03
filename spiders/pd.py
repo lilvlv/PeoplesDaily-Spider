@@ -40,8 +40,8 @@ class PdSpider(scrapy.Spider):
         article['date'] = response.css(".sha_left span::text").extract()[0]
         article['page'] = response.css(".sha_left span::text").extract()[1]
         article['news_type'] = response.css(".sha_left span::text").extract()[2]
-        article['title'] = response.css(".title").extract()
-        article['subtitle'] = response.css(".subtitle").extract()
-        article['author'] = response.css(".author").extract()
+        article['title'] = response.css(".title::text").extract()
+        article['subtitle'] = response.css(".subtitle::text").extract()
+        article['author'] = response.css(".author::text").extract()
         article['text'] = response.css("#FontZoom>p::text").extract()
         return article
