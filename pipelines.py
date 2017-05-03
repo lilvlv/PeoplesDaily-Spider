@@ -2,7 +2,7 @@
 
 class PeoplesdailyPipeline(object):
     def open_spider(self, spider):
-        self.f = open('anarticle.txt', 'a')
+        self.f = open('anarticle.json', 'a')
 
     def close_spider(self, spider):
         self.f.close()
