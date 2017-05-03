@@ -39,7 +39,7 @@ class PdSpider(scrapy.Spider):
         article = PeoplesdailyItem()
         article['date'] = response.css(".sha_left span::text").extract()[0]
         article['page'] = response.css(".sha_left span::text").extract()[1]
-        article['type'] = response.css(".sha_left span::text").extract()[2]
+        article['news_type'] = response.css(".sha_left span::text").extract()[2]
         article['title'] = response.css(".title").extract()
         article['subtitle'] = response.css(".subtitle").extract()
         article['author'] = response.css(".author").extract()
