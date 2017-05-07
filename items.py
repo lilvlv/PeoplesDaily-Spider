@@ -10,3 +10,6 @@ class PeoplesdailyItem(scrapy.Item):
     subtitle = scrapy.Field()
     author = scrapy.Field()
     text = scrapy.Field()
+
+class NewspicspiderItem(scrapy.Item):
+    news_pic = scrapy.Field()
