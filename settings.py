@@ -56,8 +56,13 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+    'PeoplesDaily.pipelines.RenameImagesPipeline': 100,
     'PeoplesDaily.pipelines.PeoplesdailyPipeline': 300,
 }
+
+IMAGES_URLS_FIELD = "news_pic"
+IMAGES_STORE = "/Users/aoeiuv/Desktop/rmrb/2017"
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
