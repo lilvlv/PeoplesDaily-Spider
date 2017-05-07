@@ -2,7 +2,7 @@
 
 import scrapy
 import datetime
-from PeoplesDaily.items import PeoplesdailyItem
+from PeoplesDaily.items import PeoplesdailyItem,NewspicspiderItem
 
 
 class PdSpider(scrapy.Spider):
@@ -10,8 +10,8 @@ class PdSpider(scrapy.Spider):
     start_urls = []
 
     url_invariant_part = r'http://58.68.146.102/rmrb/'
-    begin_date = datetime.datetime(2017, 4, 1)
-    end_date = datetime.datetime(2017, 4, 6)
+    begin_date = datetime.datetime(2017, 5, 1)
+    end_date = datetime.datetime(2017, 5, 6)
 
     def start_requests(self):
         delta_days = self.end_date - self.begin_date
@@ -26,6 +26,11 @@ class PdSpider(scrapy.Spider):
         for a_variable_part in url_variable_parts:
             url = url_invariant_part + a_variable_part
             yield scrapy.Request(url, callback=self.parse_a_page_for_url)
+            
+        pic_url_variable_parts = response.css(".banc_yb_btn ::attr(href)").extract()
+        for a_variable_part in pic_url_variable_parts:
+            url = url_invariant_part + a_variable_part
+            yield scrapy.Request(url, callback=self.parse_a_pic)
             
     def parse_a_page_for_url(self, response):
         url_invariant_part = r'http://58.68.146.102'
@@ -45,3 +50,11 @@ class PdSpider(scrapy.Spider):
         article['author'] = response.css(".author::text").extract()
         article['text'] = response.css("#FontZoom>p::text").extract()
         return article
+
+    def parse_a_pic(self, response):
+        url_invariant_part = r'http://58.68.146.102'
+        a_variable_part = response.css("#banshi::attr(src)").extract()
+        url = url_invariant_part + a_variable_part[0]
+        pics = NewspicspiderItem()
+        pics["news_pic"] = [url]
+        yield pics
